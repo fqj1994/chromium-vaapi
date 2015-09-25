@@ -1,0 +1,40 @@
+Index: chrome/browser/ui/libgtk2ui/select_file_dialog_impl_gtk2.cc
+diff --git a/chrome/browser/ui/libgtk2ui/select_file_dialog_impl_gtk2.cc b/chrome/browser/ui/libgtk2ui/select_file_dialog_impl_gtk2.cc
+index 91daa5cdc9b6de2c516d45bc11f4735484a120ee..6a0cb7cb8957ab5ace97619c5bbc2c51ddd44b7f 100644
+--- a/chrome/browser/ui/libgtk2ui/select_file_dialog_impl_gtk2.cc
++++ b/chrome/browser/ui/libgtk2ui/select_file_dialog_impl_gtk2.cc
+@@ -3,6 +3,10 @@
+ // found in the LICENSE file.
+ 
+ #include <gtk/gtk.h>
++#include <sys/stat.h>
++#include <sys/types.h>
++#include <unistd.h>
++
+ #include <map>
+ #include <set>
+ #include <vector>
+@@ -621,8 +625,22 @@ void SelectFileDialogImplGTK::OnFileChooserDestroy(GtkWidget* dialog) {
+ void SelectFileDialogImplGTK::OnUpdatePreview(GtkWidget* chooser) {
+   gchar* filename = gtk_file_chooser_get_preview_filename(
+       GTK_FILE_CHOOSER(chooser));
+-  if (!filename)
++  if (!filename) {
++    gtk_file_chooser_set_preview_widget_active(GTK_FILE_CHOOSER(chooser),
++                                               FALSE);
+     return;
++  }
++
++  // Don't attempt to open anything which isn't a regular file. If a named pipe,
++  // this may hang. See https://crbug.com/534754.
++  struct stat stat_buf;
++  if (stat(filename, &stat_buf) != 0 || !S_ISREG(stat_buf.st_mode)) {
++    g_free(filename);
++    gtk_file_chooser_set_preview_widget_active(GTK_FILE_CHOOSER(chooser),
++                                               FALSE);
++    return;
++  }
++
+   // This will preserve the image's aspect ratio.
+   GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file_at_size(filename, kPreviewWidth,
+                                                        kPreviewHeight, NULL);
