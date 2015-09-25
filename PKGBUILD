@@ -4,11 +4,11 @@
 # Contributor: Jan "heftig" Steffens <jan.steffens@gmail.com>
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
-pkgname=chromium-vaapi
+pkgname=chromium-fqj
 pkgver=45.0.2454.99
 pkgrel=1
 _launcher_ver=2
-pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser with VA-API HTML5 and Flash StageVideo H.264 hardware decoding."
+pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser with custom modifications which may cause reduced security."
 arch=('i686' 'x86_64')
 url="http://www.chromium.org/"
 license=('BSD')
@@ -32,6 +32,7 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         0001-enable-hardware-decoding-on-linux.patch
         0001-Demand-for-newer-POSIX-macro.patch
         fix-crbug-534754.patch
+        0001-disable-origin-check.patch
         chromium-widevine.patch)
 sha256sums=('15d1a31fd0acfca07d614249518192983890507641e09db8d4c91d9ddf7ea340'
             '7f91c81721092d707d7b94e6555a48bc7fd0bc0e1174df4649bdcd745930e52f'
@@ -39,6 +40,7 @@ sha256sums=('15d1a31fd0acfca07d614249518192983890507641e09db8d4c91d9ddf7ea340'
             '590820c8018d6318704806c442f199243f186a6d471212e5832e007032ec4760'
             'd908939b10161efe658f0f82d2c132bf28dff54e08f02c6fed93815c3656f328'
             'ec7cd039795c4deeb118f3bf7b695e89381fd6cd4921f75b0528270685b744af'
+            'd698f14af7e11306a37c8b72a3cf67c6e1336b3946c44415633f73409c13d8ac'
             '379b746e187de28f80f5a7cd19edcfa31859656826f802a1ede054fcb6dfb221')
 
 # Google API keys (see http://www.chromium.org/developers/how-tos/api-keys)
@@ -61,6 +63,7 @@ fi
 prepare() {
   cd "$srcdir/chromium-$pkgver"
 
+  patch -Np1 -i ../0001-disable-origin-check.patch
 
   patch -Np1 -i ../0001-enable-hardware-decoding-on-linux.patch
 

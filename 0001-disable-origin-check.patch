@@ -1,0 +1,24 @@
+From 4d3e76f12fbe9b180665914dab8001fbea9600ed Mon Sep 17 00:00:00 2001
+From: Qijiang Fan <fqj1994@gmail.com>
+Date: Fri, 25 Sep 2015 21:26:56 +0800
+Subject: [PATCH] disable origin check
+
+---
+ media/blink/buffered_data_source.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/media/blink/buffered_data_source.cc b/media/blink/buffered_data_source.cc
+index 614fa39..661691f 100644
+--- a/media/blink/buffered_data_source.cc
++++ b/media/blink/buffered_data_source.cc
+@@ -431,6 +431,7 @@ bool BufferedDataSource::CheckPartialResponseURL(
+   // for details.
+   // If the origin of the new response is different from the first response we
+   // deny the redirected response.
++  return true;
+   return response_original_url_.GetOrigin() ==
+          partial_response_original_url.GetOrigin();
+ }
+-- 
+2.5.3
+
