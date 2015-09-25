@@ -22,15 +22,14 @@ diff --git a/chrome/browser/about_flags.cc b/chrome/browser/about_flags.cc
 index 6f42c9c..12e7322 100644
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
-@@ -1063,7 +1063,7 @@ const Experiment kExperiments[] = {
-   { "disable-accelerated-video-decode",
-     IDS_FLAGS_DISABLE_ACCELERATED_VIDEO_DECODE_NAME,
-     IDS_FLAGS_DISABLE_ACCELERATED_VIDEO_DECODE_DESCRIPTION,
--    kOsMac | kOsWin | kOsCrOS,
-+    kOsAll,
-     SINGLE_VALUE_TYPE(switches::kDisableAcceleratedVideoDecode),
-   },
- #if defined(USE_ASH)
+@@ -973,6 +973,6 @@    {
+      "disable-accelerated-video-decode",
+      IDS_FLAGS_DISABLE_ACCELERATED_VIDEO_DECODE_NAME,
+      IDS_FLAGS_DISABLE_ACCELERATED_VIDEO_DECODE_DESCRIPTION,
+-     kOsMac | kOsWin | kOsCrOS,
++     kOsAll,
+      SINGLE_VALUE_TYPE(switches::kDisableAcceleratedVideoDecode),
+     },
 diff --git a/content/common/gpu/media/gpu_video_decode_accelerator.cc b/content/common/gpu/media/gpu_video_decode_accelerator.cc
 index c4d7eb9..40f4422 100644
 --- a/content/common/gpu/media/gpu_video_decode_accelerator.cc
