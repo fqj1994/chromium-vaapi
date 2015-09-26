@@ -5,7 +5,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=chromium-vaapi
-pkgver=45.0.2454.99
+pkgver=45.0.2454.101
 pkgrel=1
 _launcher_ver=2
 pkgdesc="The open-source project behind Google Chrome, an attempt at creating a safer, faster, and more stable browser with VA-API HTML5 and Flash StageVideo H.264 hardware decoding."
@@ -33,7 +33,7 @@ source=(https://commondatastorage.googleapis.com/chromium-browser-official/chrom
         0001-Demand-for-newer-POSIX-macro.patch
         fix-crbug-534754.patch
         chromium-widevine.patch)
-sha256sums=('15d1a31fd0acfca07d614249518192983890507641e09db8d4c91d9ddf7ea340'
+sha256sums=('1b682dcaae9c89b2ebfdb192bb2f73c78c5b30a55103e7198fa3c1e21fed85fb'
             '7f91c81721092d707d7b94e6555a48bc7fd0bc0e1174df4649bdcd745930e52f'
             '028a748a5c275de9b8f776f97909f999a8583a4b77fd1cd600b4fc5c0c3e91e9'
             '590820c8018d6318704806c442f199243f186a6d471212e5832e007032ec4760'
